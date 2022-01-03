@@ -8,6 +8,7 @@
 
 /* Environment Variables */
 
+const propertiesJob = require('./jobs/propertySetting')
 const sLog = require('./utils/sLog')
 
 /* We can't forget teams, so let's create them */
@@ -17,18 +18,14 @@ const teams = {
     Employee: new Team('Employee', '#8C92AC'),
     Security: new Team('Security', '#8C92AC'),
     Raider: new Team('Raider', '#8C92AC'),
-    'Main Menu': new Team('Main Menu', '#bf00000'),
+    Menu: new Team('Main Menu', '#bf00000'),
 }
 
 /**
  * Initial spawn, we set the teams and config.
  */
 Game.on('initialSpawn', (p) => {
-    sLog.startWorker('PROPERTY SETTING', 'PayerWorker')
-    p.setTeam(teams['Main Menu'])
-    p.menuEnabled = false
-    p.menuPage = 1
-    sLog.finishWorker(`PROPERTY SETTING`, 'PayerWorker')
+    propertiesJob(p)
 })
 
 module.exports = {

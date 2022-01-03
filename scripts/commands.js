@@ -26,6 +26,12 @@ Game.command('next', (player) => {
     if (player.menuEnabled == false)
         return player.topPrint('Use /menu to set back to menu team.', 2)
     player.menuPage++
+    if(!menuPages[player.menuPage]) {
+        sLog.fail(`Player ${player.username} tried accessing an invalid page.`)
+        player.menuPage--
+        return player.message(`[🖥️] The page you attempted to go to does not exist, reverting back.`)
+    }
+
     sLog.success(
         `/next called by ${player.username}, going to page ${player.menuPage}`
     )
@@ -57,15 +63,14 @@ Game.command('menu', (player) => {
      * Menu rendering loop.
      */
     setInterval(() => {
-        sLog.startWorker('MENU LOOP', 'MenuWorker')
 
         player.topPrint(menuPages[player.menuPage].top, 1)
         player.centerPrint(menuPages[player.menuPage].middle, 1)
         player.bottomPrint(menuPages[player.menuPage].bottom, 1)
         if (player.menuEnabled == false)
-            clearInterval() && sLog.finishWorker('MENU LOOP', 'MenuWorker')
+            clearInterval(() => {
+            })
     }, 100)
-    sLog.finishWorker('MENU ENABLING', 'MenuWorker')
 })
 
 Game.command('join', (player, arguments) => {
