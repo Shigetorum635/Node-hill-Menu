@@ -1,5 +1,5 @@
-const sLog = require("./utils/sLog")
-const {teams } = require('./teams');
+const sLog = require('./utils/sLog')
+const { teams } = require('./teams')
 const menuPages = require('./menuPages')
 
 /**
@@ -9,11 +9,11 @@ const menuPages = require('./menuPages')
 Game.command('back', (player, caller) => {
     if (player.menuEnabled == false)
         return player.topPrint('Use /menu to set back to menu team.', 2)
-    
-        if (player.menuPage <= 0)
+
+    if (player.menuPage <= 0)
         return player.topPrint('Invalid page, you are on page 0!', 2)
-    
-        player.menuPage--
+
+    player.menuPage--
     sLog.success(
         `/back called by ${player.username}, going to page ${player.menuPage}`
     )
@@ -40,7 +40,10 @@ Game.command('menu', (player) => {
      * Checks if the menu is open or not.
      */
     if (player.menuEnabled === true)
-        return player.topPrint('You are on menu already!') && sLog.finishWorker('MENU ENABLING', 'MenuWorker')
+        return (
+            player.topPrint('You are on menu already!') &&
+            sLog.finishWorker('MENU ENABLING', 'MenuWorker')
+        )
 
     sLog.success(`/menu called by ${player.username}, enabling menu.`)
     /**
@@ -48,7 +51,7 @@ Game.command('menu', (player) => {
      */
     player.menuEnabled = true
     player.menuPage = 0
-    player.setTeam(teams["Main Menu"])
+    player.setTeam(teams['Main Menu'])
     sLog.success(`All properties set succesfully.`)
     /**
      * Menu rendering loop.
@@ -59,8 +62,18 @@ Game.command('menu', (player) => {
         player.topPrint(menuPages[player.menuPage].top, 1)
         player.centerPrint(menuPages[player.menuPage].middle, 1)
         player.bottomPrint(menuPages[player.menuPage].bottom, 1)
-        if (player.menuEnabled == false) clearInterval() && sLog.finishWorker('MENU LOOP', 'MenuWorker')
+        if (player.menuEnabled == false)
+            clearInterval() && sLog.finishWorker('MENU LOOP', 'MenuWorker')
     }, 100)
     sLog.finishWorker('MENU ENABLING', 'MenuWorker')
+})
 
+Game.command('join', (player, arguments) => {
+    if (
+        arguments == null ||
+        arguments == 'menu' ||
+        teams[arguments] == undefined
+    )
+        return player.topPrint('Please enter a correct team name.')
+    player.setTeam(teams[arguments])
 })

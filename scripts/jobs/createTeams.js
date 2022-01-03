@@ -8,4 +8,3 @@ function beginJob(teams) {
 }
 
 beginJob(teams)
-

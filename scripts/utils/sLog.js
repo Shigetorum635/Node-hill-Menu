@@ -19,14 +19,25 @@ class sLog {
     }
 
     static startWorker(args, workerName) {
-      console.time(workerName)
-      console.log(chalk.yellow.bold((`🔭 - ${moment().format('h:mm:ss')} - ✨ Worker ✨ [${workerName}] starting ${args}`)))
+        console.time(workerName)
+        console.log(
+            chalk.yellow.bold(
+                `🔭 - ${moment().format(
+                    'h:mm:ss'
+                )} - ✨ Worker ✨ [${workerName}] starting ${args}`
+            )
+        )
     }
 
-    static finishWorker(args, workerName){
-      console.log(chalk.yellow.bold(`🔭 - ${moment().format('h:mm:ss')} - ✨ Worker ✨ [${workerName}] finished ${args}`))
-      console.timeEnd(workerName)
-
+    static finishWorker(args, workerName) {
+        console.log(
+            chalk.yellow.bold(
+                `🔭 - ${moment().format(
+                    'h:mm:ss'
+                )} - ✨ Worker ✨ [${workerName}] finished ${args}`
+            )
+        )
+        console.timeEnd(workerName)
     }
 }
 

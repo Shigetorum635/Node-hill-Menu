@@ -10,9 +10,9 @@ nh.startServer({
     local: true, // Whether or not your server is local
 
     mapDirectory: './maps/', // The path to your maps folder.
-    
+
     recursiveLoading: true,
-    
+
     map: 'example.brk', // The file name of your .brk
 
     scripts: './scripts', // Your .js files path
